@@ -1,7 +1,7 @@
 
 #include "ArrayPedidos.h"
-#include "ArrayEnvios.h"
 #include "ArrayClientes.h"
+#include "ArrayEnvios.h"
 #include "ArrayLocalidad.h"
 
 
@@ -57,7 +57,7 @@ int VerificarElEstadoDeLaListaDePedidosCompletados(ePedido listaPedidos[], int t
     return flagRetorno;
 }
 
-int CrearPedidoRecoleccion(eCliente listaClientes[], int tam, int idCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido, int idPedidoAux,int* idEnvio, int idEnvioAux, eEnvios listaEnviados[], int tamEnviados, eLocalidad listaLocalidades[], int tamLocalidades)
+int CrearPedidoRecoleccion(eCliente listaClientes[], int tam, int idCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido, int idPedidoAux,int* idEnvio, int idEnvioAux, eEnvios listaEnviados[], int tamEnviados, eLocalidad listaLocalidades[], int tamLocalidades)//Le permite al usuario generar un pedido de recoleccion y poner el estado en PENDIENTE
 {
  int flagRetorno = -1;
  int opcion;
@@ -77,7 +77,6 @@ int CrearPedidoRecoleccion(eCliente listaClientes[], int tam, int idCliente, ePe
                     listaPedidos[j].kilosTotales = IngresarNumeroFlotante("Ingrese la cantidad de kilos totales a reciclar: ");
                     listaPedidos[j].estadoPedido = PENDIENTE;
                     listaPedidos[j].estado = CARGADO;
-                    listaClientes[i].acumPendientes ++;
                     strcpy(listaPedidos[j].descripcion,"PENDIENTE");
                     printf("¿A donde desea enviar el pedido?\n\n");
                     opcion = IngresarNumeroEnteroDeMaximoAMinimo("1-Misma direccion\n2-Cambiar Direccion\n", 2, 1);
@@ -196,8 +195,7 @@ int ProcesarResiduos(eCliente listaClientes[],int tam, ePedido listaPedidos[], i
                 listaPedidos[i].basura = listaPedidos[i].kilosTotales - listaPedidos[i].kilosHDPE - listaPedidos[i].kilosLDPE - listaPedidos[i].kilosPP;
             }while((opcion != 0 && opcion != 4) || kilosAux < 0);
         }
-        listaClientes[i].acumProcesados ++;
-        listaClientes[i].acumPendientes --;
+
     }
     return flagRetorno;
 }
@@ -370,40 +368,90 @@ int PromedioPolipropileno(eCliente listaClientes[], int tam, ePedido listaPedido
     return flagRetorno;
 }
 
-int MaximoPedidosPendientesCliente(eCliente listaClientes[], int tamClientes)
+int MaximoPedidosPendientesCliente(eCliente listaClientes[], int tamClientes, ePedido listaPedidos[], int tamPedidos )
 {
 	int flagRetorno = -1;
-	for(int i = 0 ; i < tamClientes - 1; i++)
-	{
-		  for (int j = i + 1; j < tamClientes ; j++)
-		  {
-			  if(listaClientes[i].acumPendientes > listaClientes[j].acumPendientes)
-			  {
-				  printf("La empresa con mas pendientes es %s",listaClientes[i].nombre);
-			  	  flagRetorno = 0 ;
-			  	  break;
-			  }
+	int flagMayor = 1;
+	int maximoPendientes;
+	int contadorPendientes = 0;
 
-		  }
+	for(int v=0; v < 2; v++)
+	{
+		for(int i = 0 ; i < tamClientes; i++)
+		{
+			if(listaClientes[i].estado == CARGADO)
+			{
+				for (int j = 0; j < tamPedidos ; j++)
+				{
+					if(listaPedidos[j].estado == CARGADO && listaPedidos[j].estadoPedido == PENDIENTE && listaClientes[i].id == listaPedidos[j].idCliente)
+					{
+						flagRetorno = 0;
+						contadorPendientes++;
+						maximoPendientes = contadorPendientes;
+					}
+				}
+				if((contadorPendientes > maximoPendientes || flagMayor) && v == 1)
+				{
+					maximoPendientes = contadorPendientes;
+					flagMayor = 0;
+				}
+				else if (v == 2 && (contadorPendientes == maximoPendientes))
+				{
+
+					printf("Lista de empresas con mas pedidos pendientes\n");
+					printf("  ID        EMPRESA           DIRECCION       CANT PEDIDOS");
+					printf("%4d%15s%20s%14d");
+
+				}
+				contadorPendientes = 0;
+			}
+		}
+
 	}
 	return flagRetorno;
 }
 
-int MaximoPedidosProcesadosCliente(eCliente listaClientes[], int tamClientes)
+
+int MaximoPedidosProcesadosCliente(eCliente listaClientes[], int tamClientes, ePedido listaPedidos[], int tamPedidos )
 {
 	int flagRetorno = -1;
-	for(int i = 0 ; i < tamClientes - 1; i++)
-	{
-		  for (int j = i + 1; j < tamClientes ; j++)
-		  {
-			  if(listaClientes[i].acumProcesados > listaClientes[j].acumProcesados)
-			  {
-				  printf("La empresa con mas procesados es %s",listaClientes[i].nombre);
-			  	  flagRetorno = 0 ;
-			  	  break;
-			  }
+	int flagMayor = 1;
+	int maximoProcesados;
+	int contadorProcesados = 0;
 
-		  }
+	for(int v=0; v < 2; v++)
+	{
+		for(int i = 0 ; i < tamClientes; i++)
+		{
+			if(listaClientes[i].estado == CARGADO)
+			{
+				for (int j = 0; j < tamPedidos ; j++)
+				{
+					if(listaPedidos[j].estado == CARGADO && listaPedidos[j].estadoPedido == COMPLETADO && listaClientes[i].id == listaPedidos[j].idCliente)
+					{
+						flagRetorno = 0;
+						contadorProcesados++;
+						maximoProcesados = contadorProcesados;
+					}
+				}
+				if((contadorProcesados > maximoProcesados || flagMayor) && v == 1)
+				{
+					maximoProcesados = contadorProcesados;
+					flagMayor = 0;
+				}
+				else if (v == 2 && (contadorProcesados == maximoProcesados))
+				{
+
+					printf("Lista de empresas con mas pedidos procesados\n");
+					printf("  ID        EMPRESA           DIRECCION       CANT PEDIDOS");
+					printf("%4d%15s%20s%14d");
+
+				}
+				contadorProcesados = 0;
+			}
+		}
+
 	}
 	return flagRetorno;
 }
+

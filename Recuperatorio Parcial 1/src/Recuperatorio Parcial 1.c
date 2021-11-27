@@ -144,7 +144,7 @@ int main()
         case 4:
         idIngresado = BuscarClientesPorId(listaClientes, TAM_CLIENTES, listaLocalidades, TAM_LOCALIDADES);
            system("cls");
-        flagModificacion = CrearPedidoRecoleccion(listaClientes, TAM_CLIENTES, idIngresado, listaPedidos, TAM_PEDIDOS, &idPedido, idAuxPedido, &idEnvio, idEnvioAux, listaEnvios, TAM_ENVIOS, listaLocalidades, TAM_LOCALIDADES);
+        flagModificacion = CrearPedidoRecoleccion(listaClientes, TAM_CLIENTES , idIngresado, listaPedidos, TAM_PEDIDOS, &idPedido, idAuxPedido, &idEnvio, idEnvioAux, listaEnvios, TAM_CLIENTES, listaLocalidades, TAM_LOCALIDADES);
           system("cls");
             if(flagModificacion == 0)
             {
@@ -233,17 +233,34 @@ int main()
         flagModificacion = PromedioPolipropileno(listaClientes,TAM_CLIENTES,listaPedidos,TAM_PEDIDOS);
         if(flagModificacion== -1)
         {
-
             printf("No se encontro pedidos con polipropileno(PP).\n\n");
         }
-
         break;
 
         case 11:
         	system("cls");
+        	flagModificacion = MaximoPedidosPendientesCliente(listaClientes, TAM_CLIENTES, listaPedidos, TAM_PEDIDOS);
+        	if(flagModificacion == -1)
+        	{
+        		printf("Aun no se encuentran pedidos pendientes");
+        	}
+
+        break;
+
+        case 12:
+        	system("cls");
+        	flagModificacion = MaximoPedidosProcesadosCliente(listaClientes, TAM_CLIENTES, listaPedidos, TAM_PEDIDOS);
+        	if(flagModificacion == -1)
+        	{
+        		printf("Aun no se encuentran pedidos procesados");
+        	}
+        	break;
+
+        case 13:
+        	system("cls");
         	MostrarListaEnviados(listaEnvios, TAM_ENVIOS, listaPedidos, TAM_PEDIDOS, listaClientes, TAM_CLIENTES, listaLocalidades, TAM_LOCALIDADES);
         	break;
-        case 12:
+        case 14:
         	if(VerificarListaDeEnvios(listaEnvios, TAM_ENVIOS) == -1)
         	{
         		printf("No hay pedidos para enviar");
@@ -261,7 +278,7 @@ int main()
         		printf("Ocurrio un error al modificar el estado ");
         	}
         	break;
-        case 13:
+        case 15:
         	system("cls");
         	if(VerificarListaDeEnvios(listaEnvios, TAM_ENVIOS) == -1)
 			{

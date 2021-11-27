@@ -1,9 +1,9 @@
 #ifndef ARRAYENVIOS_H_
 #define ARRAYENVIOS_H_
 
-
-#include "ArrayPedidos.h"
 #include "ArrayClientes.h"
+#include "ArrayPedidos.h"
+
 #include "ArrayLocalidad.h"
 
 
@@ -29,13 +29,13 @@ void InicializarListaEnvios(eEnvios listaEnviados[], int tamEnviados);
 
 int VerificarListaDeEnvios(eEnvios listaEnviados[], int tamEnviados);
 
-void MostrarUnSoloEnvio(eEnvios unEnvio, ePedido unPedido, eCliente cliente, eLocalidad listaLocalidades[], int tamLocalidades);
+void MostrarUnSoloEnvio(eEnvios unEnvio, ePedido unPedido,eCliente cliente, eLocalidad listaLocalidades[], int tamLocalidades );
 
-void MostrarListaEnviados(eEnvios listaEnviados[], int tamEnviados, ePedido listaPedidos[],int tamPedidos, eCliente listaClientes[], int tamClientes, eLocalidad listaLocalidades[], int tamLocalidades);
+void MostrarListaEnviados(eEnvios listaEnviados[], int tamEnviados, ePedido listaPedidos[],int tamPedidos, eCliente listaClientes[], int tamClientes, eLocalidad listaLocalidades[], int tamLocalidades );
 
 int BuscarEnviosPorSuId(eEnvios listaEnviados[], int tamEnviados, ePedido listaPedidos[],int tamPedidos, eCliente listaClientes[], int tamClientes, eLocalidad listaLocalidades[], int tamLocalidades);
 
 int CambiarElEstadoDelEnvio(eEnvios listaEnviados[],int tamEnviados, int idIngresado);
 
-int FiltarEnviosGratuitos(eEnvios listaEnviados[],int tamEnviados, ePedido listaPedidos[],int tamPedidos, eLocalidad listaLocalidades[], int tamLocalidades, eCliente listaClientes[], int tamClientes);
+int FiltarEnviosGratuitos(eEnvios listaEnviados[],int tamEnviados, ePedido listaPedidos[],int tamPedidos, eLocalidad listaLocalidades[], int tamLocalidades, eCliente listaClientes[], int tamClientes );
 #endif /* ARRAYENVIOS_H_ */

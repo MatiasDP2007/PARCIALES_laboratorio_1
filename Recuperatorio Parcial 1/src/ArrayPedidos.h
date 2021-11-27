@@ -8,8 +8,9 @@
 
 
 #include "ArrayClientes.h"
-#include "ArrayLocalidad.h"
 #include "ArrayEnvios.h"
+#include "ArrayLocalidad.h"
+
 
 #define CARGADO 1
 #define VACIO 0
@@ -43,6 +44,6 @@ void ImprimirListaDeClientesConSusPendientes(eCliente listaClientes[],int tam, e
 void MostrarListaProcesados(eCliente listaClientes[],int tam, ePedido listaPedidos[], int tamPedidos, eLocalidad listaLocalidades[], int tamLocalidades);
 int MostrarPedidosPorLocalidad(eCliente listaClientes[], int tam, ePedido listaPedidos[],int tamPedidos, eLocalidad listaLocalidades[], int tamLocalidades);
 int PromedioPolipropileno(eCliente listaClientes[], int tam, ePedido listaPedidos[],int tamPedidos);
-int MaximoPedidosPendientesCliente(eCliente listaClientes[], int tamClientes);
-int MaximoPedidosProcesadosCliente(eCliente listaClientes[], int tamClientes);
+int MaximoPedidosPendientesCliente(eCliente listaClientes[], int tamClientes, ePedido listaPedidos[], int tamPedidos );
+int MaximoPedidosProcesadosCliente(eCliente listaClientes[], int tamClientes, ePedido listaPedidos[], int tamPedidos );
 #endif
