@@ -1,7 +1,8 @@
 #include "ArrayClientes.h"
+#include "ArrayPedidos.h"
 #include "Biblioteca.h"
+#include "ArrayEnvios.h"
 #include "ArrayLocalidad.h"
-
 
 
 void InicializarListaDeClientes (eCliente listaClientes[], int tam)
@@ -35,17 +36,17 @@ int AgregarCliente(eCliente listaClientes[], int tam, int* valorId, int idAux, e
 
             if(listaClientes[i].estado == VACIO)
             {
-            flagRetorno = 0;
-            idAux ++;
-            listaClientes[i].id = idAux;
-            IngresarCadena("\nIngrese el nombre de la empresa: ", listaClientes[i].nombre);
-            listaClientes[i].cuit = IngresarNumeroEnteroDeMaximoAMinimo("\nIngrese el CUIT: ",9999999,1);
-            IngresarCadena("\nIngrese la direccion: ",listaClientes[i].direccion);
-            listaClientes[i].altura = IngresarNumeroEnteroDeMaximoAMinimo("\nIngrese la altura: ",999999,0);
-            MostrarListaLocalidaes(listaLocalidades, tamLocalidades);
-            listaClientes[i].localidad = IngresarNumeroEnteroDeMaximoAMinimo("\nIngresar localidad: ",tamLocalidades, 1);
-            listaClientes[i].estado = CARGADO;
-            break;
+				flagRetorno = 0;
+				idAux ++;
+				listaClientes[i].id = idAux;
+				IngresarCadena("\nIngrese el nombre de la empresa: ", listaClientes[i].nombre);
+				listaClientes[i].cuit = IngresarNumeroEnteroDeMaximoAMinimo("\nIngrese el CUIT: ",9999999,1);
+				IngresarCadena("\nIngrese la direccion: ",listaClientes[i].direccion);
+				listaClientes[i].altura = IngresarNumeroEnteroDeMaximoAMinimo("\nIngrese la altura: ",999999,0);
+				MostrarListaLocalidaes(listaLocalidades, tamLocalidades);
+				listaClientes[i].localidad = IngresarNumeroEnteroDeMaximoAMinimo("\nIngresar localidad: ",tamLocalidades, 1);
+				listaClientes[i].estado = CARGADO;
+				break;
             }
 
     }

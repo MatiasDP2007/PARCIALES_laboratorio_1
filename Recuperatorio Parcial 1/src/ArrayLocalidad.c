@@ -1,4 +1,8 @@
 #include "ArrayLocalidad.h"
+#include "ArrayPedidos.h"
+#include "Biblioteca.h"
+#include "ArrayClientes.h"
+#include "ArrayEnvios.h"
 
 void MostrarListaLocalidaes(eLocalidad listaLocalidades[], int tam)
 {

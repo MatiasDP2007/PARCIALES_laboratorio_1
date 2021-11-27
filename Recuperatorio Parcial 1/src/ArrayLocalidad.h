@@ -7,7 +7,7 @@ typedef struct
 {
 	int id;
 	char descripcion[51];
-	int estado;
+
 } eLocalidad;
 
 void MostrarListaLocalidaes(eLocalidad listaLocalidades [], int tam);

@@ -7,6 +7,7 @@
 
 #include "Biblioteca.h"
 #include "ArrayLocalidad.h"
+#include "ArrayPedidos.h"
 
 
 
@@ -22,6 +23,8 @@ typedef struct
     int altura;
     int localidad;
 	int estado;
+	int acumPendientes ;
+	int acumProcesados ;
 } eCliente;
 
 

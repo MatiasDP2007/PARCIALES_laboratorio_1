@@ -3,11 +3,12 @@
 #include <ctype.h>
 #include <string.h>
 
+#include "ArrayEnvios.h"
 #include "Biblioteca.h"
 #include "ArrayClientes.h"
 #include "ArrayPedidos.h"
 #include "ArrayLocalidad.h"
-#include "ArrayEnvios.h"
+
 
 
 #define TAM_CLIENTES 1000
@@ -55,6 +56,7 @@ int main()
 
    // InicializarListaDeClientes (listaClientes, TAM_CLIENTES);
   //  InicializarListaDePedidos(listaPedidos, TAM_PEDIDOS);
+   // InicializarListaEnvios(listaEnvios, TAM_ENVIOS);
     do
     {
     idAux=valorId;
@@ -70,6 +72,8 @@ int main()
     printf("8-Imprimir pedidos procesados\n");
     printf("9-Pendientes por localidad\n");
     printf("10-Promedio de polipropileno reciclado\n");
+    printf("11-Mostrar lista de Envios");
+    printf("12-Modificar el estado del envio");
     printf("0-Salir\n");
     opcion = IngresarNumeroEnteroDeMaximoAMinimo ("Seleccione una opcion: ",OPCIONES, 0);
     verificarListaCargada = VerificarElEstadoDeLaLista(listaClientes, TAM_CLIENTES);
@@ -238,6 +242,39 @@ int main()
         case 11:
         	system("cls");
         	MostrarListaEnviados(listaEnvios, TAM_ENVIOS, listaPedidos, TAM_PEDIDOS, listaClientes, TAM_CLIENTES, listaLocalidades, TAM_LOCALIDADES);
+        	break;
+        case 12:
+        	if(VerificarListaDeEnvios(listaEnvios, TAM_ENVIOS) == -1)
+        	{
+        		printf("No hay pedidos para enviar");
+        		break;
+        	}
+        	system("cls");
+        	idIngresado = BuscarEnviosPorSuId(listaEnvios, TAM_ENVIOS, listaPedidos, TAM_PEDIDOS, listaClientes, TAM_CLIENTES, listaLocalidades, TAM_LOCALIDADES);
+        	flagModificacion = CambiarElEstadoDelEnvio(listaEnvios, TAM_ENVIOS, idIngresado) ;
+        	if(flagModificacion == 0)
+        	{
+        		printf("Se cambio el estado correctamente");
+        	}
+        	else
+        	{
+        		printf("Ocurrio un error al modificar el estado ");
+        	}
+        	break;
+        case 13:
+        	system("cls");
+        	if(VerificarListaDeEnvios(listaEnvios, TAM_ENVIOS) == -1)
+			{
+				printf("No hay pedidos para enviar");
+				break;
+			}
+
+        	flagModificacion = FiltarEnviosGratuitos(listaEnvios, TAM_ENVIOS, listaPedidos, TAM_PEDIDOS, listaLocalidades, TAM_LOCALIDADES, listaClientes, TAM_CLIENTES);
+        	if(flagModificacion != 0)
+        	{
+        		printf("No hay envios gratuitos");
+        		break;
+        	}
     }
 
     }while (opcion != 0);
